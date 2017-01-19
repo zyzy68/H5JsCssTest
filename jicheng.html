@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>继承</title>
+	<meta charset="utf-8">
+</head>
+<body>
+
+<script type="text/javascript">
+
+	// //以下1 、2、3 、4的基础
+	// function People(props){
+	// 	if(props != undefined){
+	// 		this.name = props.name || "unname";
+	// 		this.sex = props.sex || "unknow";
+	// 		this.say = function(){
+	// 			console.log(this.name +" say hello");
+	// 		}
+	// 	}	
+	// 	age = 12;
+	// }
+
+	// People.prototype.height = 167;
+	// People.cry ="caying";
+
+	// var wangwu = new People({name:'zhangsan'});
+
+
+	//--------------------------------------------------
+
+	// //1、通过函数 New的对象 继承函数 中this.开头的属性 ， var 和 直接定义的属性不能继承，
+	// //函数中 var定义是局部变量  没有var的变量是全局变量
+	// console.log(age);   //12
+	// console.log(wangwu.age); //undefined
+	// console.log(wangwu.name); //zhangsan
+	// console.log(wangwu.say()); //zhangsan say hello
+
+	//--------------------------------------------------
+
+	// //2、in 在原型链上找的到就是true   hasOwnProperty 自己本身的属性才为true
+	// console.log("height" in wangwu);  //true
+	// console.log(wangwu.hasOwnProperty("height"));  //false
+	// console.log(wangwu.hasOwnProperty("say"));  //true 方法属性
+	// console.log("cry" in wangwu);  //false  后添加的属性不被继承
+
+
+
+	// //函数判断自己的属性
+	// console.log(People.hasOwnProperty("name"));  //true 这个name应不是People的 this.name 
+	// console.log(People.hasOwnProperty("sex"));  //false
+	// console.log(People.hasOwnProperty("age"));  //false
+	// console.log(People.hasOwnProperty("say"));  //false
+	// console.log(People.hasOwnProperty("cry"));  //true
+
+	//--------------------------------------------------
+
+	// //3、Object.create 以People为原型创建一个空对象 
+	// var lisi = Object.create(People);
+
+	// console.log(lisi.hasOwnProperty('constructor'));  //false
+	// console.log(lisi.hasOwnProperty('prototype'));  //false
+	// console.log(lisi.hasOwnProperty('__proto__'));  //false
+
+	// console.log(lisi.constructor);  //function Function()
+	// console.log(lisi.__proto__);  //function People()
+	// console.log(lisi.prototype);  //Object { height: 167, 等 1 项… }
+
+	// console.log("constructor" in lisi);   //true
+	// console.log("prototype" in lisi);   //true
+	// console.log("__proto__" in lisi);   //true
+
+	//--------------------------------------------------
+
+	// //4  wangwu 通过People new出来，能继承People中的this.属性， 原型链的下一级Object.prototype也能被继承，但Object的属性不能被继承
+	// Object.ceshi = 'ceshi';
+	// console.log(wangwu.ceshi);  //undefined
+	// Object.prototype.ceshi = 'ceshi';
+	// console.log(wangwu.ceshi);  //ceshi
+
+
+	//--------------------------------------------------
+
+	// //用原型链实现继承
+	// function Student(props){
+	// 	this.name = props.name || "unname";
+	// 	// this.say = function(){
+	// 	// 	console.log(this.name + " say hi")
+	// 	// }
+	// }
+	
+	// Student.prototype.say = function(){
+	// 	console.log(this.name + " say hi")
+	// }
+	
+	// function PrimaryStudent(props){
+	// 	Student.call(this,props);
+	// 	this.grade = props.grade || "ungrade"
+	// }
+
+
+	// // //直接new ， PrimaryStudent 和  Student 原型链没有关系
+	// // var xiaohong = new PrimaryStudent({
+	// // 	name:'xiaohong',
+	// // 	grade:'一年级'
+	// // })
+	
+	// // console.log(xiaohong.name);  //xiaohong
+	// // console.log(xiaohong.grade);  //一年级
+	// // console.log(xiaohong.say());  //xiaohong.say is not a function 不在原型链上
+
+	// //通过中间函数建立原型链
+	// function inherits(Child,Parent){
+	// 	var F = function(){};
+	// 	F.prototype = Parent.prototype;
+	// 	Child.prototype = new F();
+	// 	Child.prototype.constructor = PrimaryStudent;
+	// }
+
+	// inherits(PrimaryStudent,Student);
+	
+
+	// var xiaoli = new PrimaryStudent({
+	// 	name:'xiaohong',
+	// 	grade:'一年级'
+	// }) 
+	// console.log(xiaoli.name);  //xiaohong
+	// console.log(xiaoli.grade);  //一年级
+	// console.log(xiaoli.say());  //xiaohong say hi
+
+	//--------------------------------------------------
+
+	// //用class实现继承
+	// class Student{
+	// 	constructor(name){
+	// 		this.name = name;
+	// 		this.aaa = "aaa";
+	// 	}
+
+	// 	hello(){
+	// 		console.log(this.name + " hello")
+	// 	}
+	// }
+
+	// class PrimaryStudent extends Student{
+	// 	constructor(name,grade){
+	// 		super(name);
+	// 		this.grade = grade;
+	// 		this.aaa = "aaaa";
+	// 	}
+
+	// 	myGrade(){
+	// 		console.log("My Grade is "+this.grade);
+	// 	}
+	// }
+
+	// ps = new PrimaryStudent('xiaohong','一年级');
+	// console.log(ps.name);
+	// console.log(ps.grade);
+	// console.log(ps.aaa);
+	// ps.hello();
+	// ps.myGrade();
+
+	//--------------------------------------------------
+
+	// //值类型 包装类型 比较
+	// var a ='a';
+	// var b = new String('a');
+	// var c = new String('a');
+	// var d = 'a';
+
+	// console.log(a.constructor) ;  //function String()
+	// console.log(b.constructor) ;  //function String()	
+	// console.log(a.__proto__) ;	//String		
+	// console.log(b.__proto__) ;	//String
+	// console.log(a===b);  //false
+	// console.log(b===c);	 //false
+	// console.log(a===d);	 //true
+
+	// console.log(a==b);  //true 
+	// console.log(b==c);	//false
+	// console.log(a==d);	//true
+
+</script>
+</body>
+</html>

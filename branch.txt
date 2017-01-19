@@ -1,0 +1,44 @@
+ZY@ZY-PC MINGW64 ~/Desktop/branch (master)
+$ git log --graph --pretty=oneline
+*   60ebae9369b0fa943b083e8d7c8f811e116bb059 master3 4 bug2master
+|\
+| *   4d520970be0c0e97fe90563f1d239035b3dbcffb bug 2 master
+| |\
+| * | 15bbdb6ac3a33f9c8b588929612ed269fd572545 bug 1
+| * | 06d04a3439083efdccdbb3315d9b089f346f5c32 dev 1
+* | | cb8f23faeea8c8df602850ecf5be8d0b4c4f098c master3
+| |/
+|/|
+* | 053efb91a44b685580ad7d54abf8591b2a91580c master 2
+|/
+* b437440b354101a4f8cd49c6f0a0328d02eea981 master 1
+
+ZY@ZY-PC MINGW64 ~/Desktop/branch (master)
+$ git checkout bug
+Switched to branch 'bug'
+
+ZY@ZY-PC MINGW64 ~/Desktop/branch (bug)
+$ git log --graph --pretty=oneline
+*   4d520970be0c0e97fe90563f1d239035b3dbcffb bug 2 master
+|\
+| * 053efb91a44b685580ad7d54abf8591b2a91580c master 2
+* | 15bbdb6ac3a33f9c8b588929612ed269fd572545 bug 1
+* | 06d04a3439083efdccdbb3315d9b089f346f5c32 dev 1
+|/
+* b437440b354101a4f8cd49c6f0a0328d02eea981 master 1
+
+ZY@ZY-PC MINGW64 ~/Desktop/branch (bug)
+$ git checkout dev
+Switched to branch 'dev'
+
+ZY@ZY-PC MINGW64 ~/Desktop/branch (dev)
+$ git log --graph --pretty=oneline
+*   05af561523ba0339aba9910f61854c1acfcbbeb0 dev2 3 master2
+|\
+| * 053efb91a44b685580ad7d54abf8591b2a91580c master 2
+* | 3879f83df677bcf34841f26308680dc71d97a4f0 dev 2
+* | 06d04a3439083efdccdbb3315d9b089f346f5c32 dev 1
+|/
+* b437440b354101a4f8cd49c6f0a0328d02eea981 master 1
+
+ZY@ZY-PC MINGW64 ~/Desktop/branch (dev)
